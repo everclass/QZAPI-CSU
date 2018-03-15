@@ -35,7 +35,7 @@ xxdm：未知
 <code>http://jwxt.gduf.edu.cn/app.do?method=getCurrentTime&currDate=#查询日期#</code>
 
 **返回值**
-> zc：未知\
+> zc：周次\
 e_time：本周结束日期\
 s_time：本周起始日期\
 xnxqh：学年
