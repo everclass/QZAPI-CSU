@@ -96,7 +96,6 @@ jzwmc：教学楼名称
 
 ### getKxJscx
 精确查询空教室\
-
 <code>http://jwxt.gduf.edu.cn/app.do?method=getKxJscx&time=#查询日期#&idleTime=#见getKxJscx#&xqid=#校区ID#&jxlid=#教学楼ID#&classroomNumber=_#可容纳人数，见下方说明#</code>
 
 xqid、jxlid、classroomNumber是可选参数
