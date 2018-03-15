@@ -163,3 +163,5 @@
 吉林电子信息职业技术学院\
 山东服装职业学院\
 国防科学技术大学
+
+Generated from: http://app.qzdatasoft.com:9876/qzkjapp//phone/provinceData
