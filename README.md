@@ -1,12 +1,14 @@
 # GDUF-QZAPI
 广东金融学院强智教务系统API
 
-根据智校园APP抓包得出，兼容可使用智校园APP的其它学校的教务系统。\
+根据智校园APP抓包得出，兼容可使用智校园APP的其它学校的强智教务系统，只需把下列API中的域名修改为你的学校教务系统域名即可。\
 除authUser API外，记得带上登录态。
 ## 提示
 由于条件限制，部分参数作用仍未明晰，欢迎fork帮助我们改进。
 
 公告和留言功能API尚未整理。
+## 支持学校
+理论上支持可使用智校园APP的所有学校，详见 [SUPPORTED.md](https://github.com/TLingC/GDUF-QZAPI/blob/master/SUPPORTED.md)
 ## API列表
 ### authUser
 登录帐号\
