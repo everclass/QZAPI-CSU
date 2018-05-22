@@ -4,6 +4,8 @@
 根据智校园APP抓包得出，兼容可使用智校园APP的其它学校的强智教务系统，只需把下列API中的域名修改为你的学校教务系统域名即可。\
 除authUser API外，记得带上登录态。
 > 在请求的header中增加token参数，值为使用authUser API后返回的token。
+
+我这里也另外写了一个PHP版的API封装，可见：[TLingC/QZAPI](https://github.com/TLingC/QZAPI)，到时候把API文档整理过去后，此项目可能会Archive。
 ## 提示
 由于条件限制，部分参数作用仍未明晰，欢迎fork帮助我们改进。
 
