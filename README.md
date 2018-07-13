@@ -5,7 +5,9 @@
 除authUser API外，记得带上登录态。
 > 在请求的header中增加token参数，值为使用authUser API后返回的token。
 
-我这里也另外写了一个PHP版的API封装，可见：[TLingC/QZAPI](https://github.com/TLingC/QZAPI)，到时候把API文档整理过去后，此项目可能会Archive。
+另外写了一个PHP版的API封装，可见：[TLingC/QZAPI](https://github.com/TLingC/QZAPI)。
+
+对教务系统周边的开发有兴趣或关于本项目有疑问的都可加群：743138676交流。
 ## 提示
 由于条件限制，部分参数作用仍未明晰，欢迎fork帮助我们改进。
 
