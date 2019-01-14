@@ -49,7 +49,7 @@ xnxqh：学年
 
 ### getKbcxAzc
 获取课程表\
-<code>http://jwxt.gduf.edu.cn/app.do?method=getKbcxAzc&xh=#学号#&xnxqid=#学年#&zc=#未知，与getCurrentTime返回的zc相同#</code>
+<code>http://jwxt.gduf.edu.cn/app.do?method=getKbcxAzc&xh=#学号#&xnxqid=#学年#&zc=#周次#</code>
 
 **返回值**\
 返回JSON数组
