@@ -1,11 +1,12 @@
+# Archived
+目前正在把API进行整理并做成文档，此仓库将存档，请留意新项目：[TLingC/QZAPI](https://github.com/TLingC/QZAPI)。
+
 # GDUF-QZAPI
 广东金融学院强智教务系统API
 
 根据智校园APP抓包得出，兼容可使用智校园APP的其它学校的强智教务系统，只需把下列API中的域名修改为你的学校教务系统域名即可。\
 除authUser API外，记得带上登录态。
 > 在请求的header中增加token参数，值为使用authUser API后返回的token。
-
-目前正在把API进行整理并做成文档，可见：[TLingC/QZAPI](https://github.com/TLingC/QZAPI)。
 
 对教务系统周边的开发有兴趣或关于本项目有疑问的都可加群：743138676交流。
 ## 提示
