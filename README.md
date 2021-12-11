@@ -1,183 +1,214 @@
-# Archived
-目前正在把API进行整理并做成文档，此仓库将存档，请留意新项目：[TLingC/QZAPI](https://github.com/TLingC/QZAPI)。
+# QZAPI-CSU
 
-# GDUF-QZAPI
-广东金融学院强智教务系统API
+中南大学强智教务系统 API
 
-根据智校园APP抓包得出，兼容可使用智校园APP的其它学校的强智教务系统，只需把下列API中的域名修改为你的学校教务系统域名即可。\
-除authUser API外，记得带上登录态。
-> 在请求的header中增加token参数，值为使用authUser API后返回的token。
+`http://csujwc.its.csu.edu.cn/app.do?method=`
 
-对教务系统周边的开发有兴趣或关于本项目有疑问的都可加群：743138676交流。
-## 提示
-由于条件限制，部分参数作用仍未明晰，欢迎fork帮助我们改进。
+> 在请求的 header 中增加 token 参数，值为使用 authUser API 后返回的 token。
 
-公告和留言功能API尚未整理。
-## 支持学校
-理论上支持可使用智校园APP的所有学校，详见 [SUPPORTED.md](https://github.com/TLingC/GDUF-QZAPI/blob/master/SUPPORTED.md)
-## API列表
-### authUser
-登录帐号\
-<code>http://jwxt.gduf.edu.cn/app.do?method=authUser&xh=#学号#&pwd=#密码#</code>
+## 登录帐号
 
-**返回值**
-> flag：未知\
-userrealname：真实姓名\
-token：令牌\
-userdwmc：学院名称\
-usertype：用户类别\
-msg：登录状态
+authUser
+### 参数
 
-### getStudentIdInfo
-获取学号信息\
-<code>http://jwxt.gduf.edu.cn/app.do?method=getStudentIdInfo&xh=#学号#</code>
+| 字段名 | 说明         |
+| ------ | ------------ |
+| xh     | 学号         |
+| pwd    | 教务系统密码 |
 
-**返回值**
-> bjid：未知\
-ndzyid：未知\
-yxid：未知\
-xxdm：未知
+### 响应数据
 
-### getCurrentTime
-获取当前时间、周次、学年等信息\
-<code>http://jwxt.gduf.edu.cn/app.do?method=getCurrentTime&currDate=#查询日期#</code>
+| 字段名       | 说明                        |
+| ------------ | --------------------------- |
+| flag         | 状态码，0 为失败，1 为成功  |
+| userrealname | 用户真实姓名                |
+| token        | 令牌，之后的 API 需要使用   |
+| userdwmc     | 用户单位名称                |
+| usertype     | 用户类别，2为学生，其他未知 |
+| msg          | 返回消息                    |
 
-**返回值**
-> zc：周次\
-e_time：本周结束日期\
-s_time：本周起始日期\
-xnxqh：学年
+## 获取课程表（疑似废弃）
 
-### getKbcxAzc
-获取课程表\
-<code>http://jwxt.gduf.edu.cn/app.do?method=getKbcxAzc&xh=#学号#&xnxqid=#学年#&zc=#周次#</code>
+getKbcxAzc
 
-**返回值**\
-返回JSON数组
-> jsmc：课程教室\
-jssj：下课时间\
-jsxm：教师姓名\
-kcmc：课程名称\
-jcsj：未知，可能是课程ID\
-kkzc：课程教学周\
-kssj：上课时间\
-sjbz：未知
+### 参数
 
-### getKxJscx
-获取空教室\
-<code>http://jwxt.gduf.edu.cn/app.do?method=getKxJscx&time=#查询日期#&idleTime=#见下方说明#</code>
+| 字段名 | 说明                       |
+| ------ | -------------------------- |
+| xh     | 学号                       |
+| xnxqid | 学年，格式为 `2021-2022-1` |
+| zc     | 周次                       |
 
-**idleTime取值**
-> allday：全天\
-am：上午\
-pm：下午\
-night：晚上
+### 响应数据
 
-**返回值**\
-返回JSON数组
-> jsh：教室ID\
-jsid：教室ID（与jsh相同）\
-jsmc：教室名称\
-jzwid：所在楼ID\
-jzwmc：所在楼名\
-xqmc：校区\
-yxzws：教室容量\
-zws：未知，和yxzws相同
+响应内容为 json 数组, 每个元素如下：
 
-### getXqcx
-获取校区\
-<code>http://jwxt.gduf.edu.cn/app.do?method=getXqcx</code>
+| 字段名 | 说明                                    |
+| ------ | --------------------------------------- |
+| jsxm   | 教师姓名                                |
+| jsmc   | 教室名称                                |
+| jssj   | 结束时间                                |
+| kssj   | 开始时间                                |
+| kkzc   | 开课周次                                |
+| kcsj   | 课程时间，`10102` 代表周一的第 1-2 节课 |  |
+| kcmc   | 课程名称                                |
+| sjbz   | 未知                                    |
 
-**返回值**\
-返回JSON数组
-> xqid：校区ID\
-xqmc：校区名称
+## 获取空教室
 
-### getJxlcx
-获取校区教学楼信息\
-<code>http://jwxt.gduf.edu.cn/app.do?method=getJxlcx&xqid=#校区ID#</code>
-
-**返回值**\
-返回JSON数组
-> jzwid：教学楼教学楼ID\
-jzwmc：教学楼名称
-
-### getKxJscx
-精确查询空教室\
-<code>http://jwxt.gduf.edu.cn/app.do?method=getKxJscx&time=#查询日期#&idleTime=#见getKxJscx#&xqid=#校区ID#&jxlid=#教学楼ID#&classroomNumber=_#可容纳人数，见下方说明#</code>
-
-xqid、jxlid、classroomNumber是可选参数
+getKxJscx
 
 **classroomNumber**
-> 30：30人以下\
-30-40：30-40人\
-40-50：40-50人\
-60：60人以上
+> 
 
-**返回值**\
-返回JSON数组
-> jsh：教室ID\
-jsid：教室ID（与jsh相同）\
-jsmc：教室名称\
-jzwid：所在楼ID\
-jzwmc：所在楼名\
-xqmc：校区\
-yxzws：教室容量\
-zws：未知，和yxzws相同
-3
-### getUserInfo
-获取帐号信息\
-<code>http://jwxt.gduf.edu.cn/app.do?method=getUserInfo&xh=#学号#</code>
+### 参数
 
-**返回值**
-> bj：班级\
-dh：电话号码\
-dqszj：未知\
-email：电子邮箱\
-fxzy：辅修专业\
-ksh：高考考号\
-nj：年级\
-qq：QQ号\
-rxnf：入学年份\
-usertype：用户类别\
-xb：性别\
-xh：学号\
-xm：姓名\
-xz：未知\
-yxmc：院系名称\
-zymc：专业名称
+| 字段名          | 说明                                                                                     |
+| --------------- | ---------------------------------------------------------------------------------------- |
+| time            | 查询日期                                                                                 |
+| idleTime        | 上午为am，下午为pm，晚上为night 全天为allday                                             |
+| xqid            | 校区 ID                                                                                  |
+| jxlid           | 教学楼 ID                                                                                |
+| classroomNumber | 可容纳人数，30为30 人以下，30-40为30-40 人，40-50为40-50 人，60为60 人以上，是否可用存疑 |
 
-### getXnxq
-获取学年和学期信息\
-<code>http://jwxt.gduf.edu.cn/app.do?method=getXnxq&xh=#学号#</code>
+### 响应数据
 
-**返回值**\
-返回JSON数组
-> isdqxq：未知\
-xnxq01id=学期学年ID\
-xqmc：学期名称
+响应内容为 json 数组, 每个元素如下：
 
-### getCjcx
-获取成绩信息\
-<code>http://jwxt.gduf.edu.cn/app.do?method=getCjcx&xh=#学号#&xnxqid=#学期学年ID#</code>
+| 字段名 | 说明     |
+| ------ | -------- |
+| jxl    | 教学楼   |
+| jsList | 教室列表 |
 
-**返回值**\
-条件所限，尚未明晰
+#### JS
 
-### getKscx
-获取考试信息\
-<code>http://jwxt.gduf.edu.cn/app.do?method=getKscx&xh=#学号#</code>
+| 字段名 | 说明               |
+| ------ | ------------------ |
+| jsid   | 教室 ID            |
+| jzwid  | 建筑物 ID          |
+| jsmc   | 教室名称           |
+| zws    | 座位数             |
+| xqmc   | 校区名称           |
+| jsh    | 教室号，同 jsid    |
+| jzwmc  | 建筑物名称         |
+| yxzws  | 余下座位数，同 zws |
 
-**返回值**\
-条件所限，尚未明晰
+## 获取校区
 
-### getEarlyWarnInfo
-获取学籍预警信息\
-<code>http://jwxt.gduf.edu.cn/app.do?method=getEarlyWarnInfo&xh=#学号#&history=#见下方说明#</code>
+getXqcx
 
-**history取值**
-> 0：当前预警\
-1：历史预警
+> 该 API 无需参数
 
-**返回值**\
-条件所限，尚未明晰
+### 响应数据
+
+响应内容为 json 数组, 每个元素如下：
+
+| 字段名 | 说明     |
+| ------ | -------- |
+| xqid   | 校区 ID  |
+| xqmc   | 校区名称 |
+
+## 获取校区教学楼信息 
+
+getJxlcx
+
+### 参数
+
+| 字段名 | 说明    |
+| ------ | ------- |
+| xqid   | 校区 ID |
+
+### 响应数据
+
+响应内容为 json 数组, 每个元素如下：
+
+| 字段名 | 说明       |
+| ------ | ---------- |
+| jzwid  | 建筑物 ID  |
+| jzwmc  | 建筑物名称 |
+
+## 获取帐号信息
+
+getUserInfo
+
+### 参数
+
+| 字段名 | 说明 |
+| ------ | ---- |
+| xh     | 学号 |
+
+### 响应数据
+
+| 字段名   | 说明                        |
+| -------- | --------------------------- |
+| fxzy     | 辅修专业                    |
+| xh       | 学号                        |
+| xm       | 姓名                        |
+| dqszj    | 未知                        |
+| usertype | 用户类别，2为学生，其他未知 |
+| yxmc     | 院系名称                    |
+| xz       | 学制                        |
+| bj       | 班级                        |
+| dh       | 电话，一般没人会填          |
+| email    | 邮箱，一般没人会填          |
+| rxnf     | 入学年份                    |
+| xb       | 性别                        |
+| ksh      | 考生号                      |
+| nj       | 年级                        |
+| qq       | QQ 号，一般没人会填         |
+| zymc     | 专业名称                    |
+
+## 获取学年和学期信息
+
+getXnxq
+
+### 参数
+
+| 字段名 | 说明 |
+| ------ | ---- |
+| xh     | 学号 |
+
+### 响应数据
+
+响应内容为 json 数组, 每个元素如下：
+
+| 字段名   | 说明         |
+| -------- | ------------ |
+| isdqxq   | 是否当前学期 |
+| xqmc     | 学期名称     |
+| xnxq01id | 学年学期 ID  |
+
+## 获取考试信息
+
+getKscx
+
+### 参数
+
+| 字段名 | 说明 |
+| ------ | ---- |
+| xh     | 学号 |
+
+### 响应数据
+
+未在考试周，无法获得除 `null` 之外的响应
+
+## 获取学籍预警信息
+
+getEarlyWarnInfo
+
+### 参数
+
+| 字段名  | 说明             |
+| ------- | ---------------- |
+| xh      | 学号             |
+| history | 当前为0，历史为1 |
+
+### 响应数据
+
+响应内容为 json 数组, 每个元素如下：
+
+| 字段名 | 说明     |
+| ------ | -------- |
+| cljg   | 处理结果 |
+| xqmc   | 学期名称 |
+| yjmc   | 预警名称 |
